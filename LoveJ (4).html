@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f8f8f8;
+            background-color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -29,9 +29,10 @@
         }
         h1 {
             color: #FF1493;
+            font-size: 2em;
         }
         button {
-            padding: 10px 20px;
+            padding: 12px 25px;
             background-color: #FF1493;
             color: white;
             border: none;
@@ -126,9 +127,14 @@
             document.body.style.backgroundColor = '#ffb6c1';  // Розовый фон
             newPage.classList.add('page-rose');
         } else {
-            document.body.style.backgroundColor = '#f8f8f8';  // Белый фон
+            document.body.style.backgroundColor = '#fff';  // Белый фон
         }
     }
+
+    // Инициализация первой страницы
+    window.onload = function() {
+        showPage('page1');
+    };
 </script>
 
 </body>
