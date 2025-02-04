@@ -51,48 +51,104 @@
 <div class="container" id="page1">
     <h1>Привет, Жан 😆</h1>
     <p>Продолжай с низу там ↓</p>
-    <button onclick="window.location.href='#page2'">Открыть</button>
-    <button onclick="window.location.href='https://www.google.com'">Не открывать</button>
+    <button id="openBtn">Открыть</button>
+    <button id="closeBtn">Не открывать</button>
 </div>
 
 <div class="container hidden" id="page2">
     <h1>Жан, ты уверена, что хочешь открыть его???</h1>
-    <button onclick="window.location.href='#page3'">Да</button>
-    <button onclick="window.location.href='https://www.google.com'">Нет</button>
+    <button id="yesBtn">Да</button>
+    <button id="noBtn">Нет</button>
 </div>
 
 <div class="container hidden" id="page3">
     <h1>Ты уверена???</h1>
-    <button onclick="window.location.href='#page4'">Да</button>
-    <button onclick="window.location.href='https://www.google.com'">Нет</button>
+    <button id="yesAgainBtn">Да</button>
+    <button id="noAgainBtn">Нет</button>
 </div>
 
 <div class="container hidden" id="page4">
     <h1>Точно точнооо??</h1>
-    <button onclick="window.location.href='#page5'">Да</button>
-    <button onclick="window.location.href='https://www.google.com'">Нет</button>
+    <button id="yesFinalBtn">Да</button>
+    <button id="noFinalBtn">Нет</button>
 </div>
 
 <div class="container hidden" id="page5">
     <h1>Ладно, ты выиграла, так уж и быть...</h1>
     <p>Урааа!!!</p>
-    <button onclick="window.location.href='#page6'">Дальше</button>
+    <button id="nextBtn">Дальше</button>
 </div>
 
 <div class="container hidden" id="page6">
     <h1>Жун, ты лучшая из всех, кого я когда-либо встречал!</h1>
     <p>Твои глаза, твое лицо, твой характер...</p>
     <p>В начале я даже не представлял, что все дойдет до такого, и я рад, что мы проходим этот путь вместе, проводим время тоже вместе, и пусть так будет всегда! ❤️</p>
-    <button class="emoji" onclick="window.location.href='#page7'">😭🥹</button>
-    <button class="emoji" onclick="window.location.href='#page7'">💯😍</button>
+    <button id="cryBtn" class="emoji">😭🥹</button>
+    <button id="loveBtn" class="emoji">💯😍</button>
 </div>
 
 <div class="container hidden" id="page7">
     <h1>С 14 февраля, Жун! ❤️</h1>
     <p>Ты — самый прекрасный человек в моей жизни, и я всегда буду рядом с тобой!</p>
     <p>Ты заслуживаешь только счастья и радости!</p>
-    <button onclick="window.location.href='#'">Тебя люблю!</button>
+    <button id="finalBtn">Тебя люблю!</button>
 </div>
+
+<script>
+    document.getElementById("openBtn").addEventListener("click", function() {
+        document.getElementById("page1").classList.add("hidden");
+        document.getElementById("page2").classList.remove("hidden");
+    });
+
+    document.getElementById("closeBtn").addEventListener("click", function() {
+        alert("Ну ладно... 😢");
+    });
+
+    document.getElementById("yesBtn").addEventListener("click", function() {
+        document.getElementById("page2").classList.add("hidden");
+        document.getElementById("page3").classList.remove("hidden");
+    });
+
+    document.getElementById("noBtn").addEventListener("click", function() {
+        alert("Ну ладно... Может в следующий раз! 😢");
+    });
+
+    document.getElementById("yesAgainBtn").addEventListener("click", function() {
+        document.getElementById("page3").classList.add("hidden");
+        document.getElementById("page4").classList.remove("hidden");
+    });
+
+    document.getElementById("noAgainBtn").addEventListener("click", function() {
+        alert("Ну как хочешь... 😢");
+    });
+
+    document.getElementById("yesFinalBtn").addEventListener("click", function() {
+        document.getElementById("page4").classList.add("hidden");
+        document.getElementById("page5").classList.remove("hidden");
+    });
+
+    document.getElementById("noFinalBtn").addEventListener("click", function() {
+        alert("Ну как хочешь... 😢");
+    });
+
+    document.getElementById("nextBtn").addEventListener("click", function() {
+        document.getElementById("page5").classList.add("hidden");
+        document.getElementById("page6").classList.remove("hidden");
+    });
+
+    document.getElementById("cryBtn").addEventListener("click", function() {
+        alert("О, ты тронула меня! 😭🥹");
+    });
+
+    document.getElementById("loveBtn").addEventListener("click", function() {
+        alert("Ты — лучший человек! 💯😍");
+    });
+
+    document.getElementById("finalBtn").addEventListener("click", function() {
+        document.getElementById("page6").classList.add("hidden");
+        document.getElementById("page7").classList.remove("hidden");
+    });
+</script>
 
 </body>
 </html>
