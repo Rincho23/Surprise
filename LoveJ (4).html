@@ -41,9 +41,6 @@
         .hidden {
             display: none;
         }
-        .emoji {
-            font-size: 24px;
-        }
     </style>
 </head>
 <body>
@@ -51,40 +48,40 @@
 <div class="container" id="page1">
     <h1>Привет, Жан 😆</h1>
     <p>Продолжай с низу там ↓</p>
-    <button onclick="goToPage('page2')">Открыть</button>
+    <button onclick="showPage('page2')">Открыть</button>
     <button onclick="window.location.href='https://www.google.com'">Не открывать</button>
 </div>
 
 <div class="container hidden" id="page2">
     <h1>Жан, ты уверена, что хочешь открыть его???</h1>
-    <button onclick="goToPage('page3')">Да</button>
+    <button onclick="showPage('page3')">Да</button>
     <button onclick="window.location.href='https://www.google.com'">Нет</button>
 </div>
 
 <div class="container hidden" id="page3">
     <h1>Ты уверена???</h1>
-    <button onclick="goToPage('page4')">Да</button>
+    <button onclick="showPage('page4')">Да</button>
     <button onclick="window.location.href='https://www.google.com'">Нет</button>
 </div>
 
 <div class="container hidden" id="page4">
     <h1>Точно точнооо??</h1>
-    <button onclick="goToPage('page5')">Да</button>
+    <button onclick="showPage('page5')">Да</button>
     <button onclick="window.location.href='https://www.google.com'">Нет</button>
 </div>
 
 <div class="container hidden" id="page5">
     <h1>Ладно, ты выиграла, так уж и быть...</h1>
     <p>Урааа!!!</p>
-    <button onclick="goToPage('page6')">Дальше</button>
+    <button onclick="showPage('page6')">Дальше</button>
 </div>
 
 <div class="container hidden" id="page6">
     <h1>Жун, ты лучшая из всех, кого я когда-либо встречал!</h1>
     <p>Твои глаза, твое лицо, твой характер...</p>
     <p>В начале я даже не представлял, что все дойдет до такого, и я рад, что мы проходим этот путь вместе, проводим время тоже вместе, и пусть так будет всегда! ❤️</p>
-    <button class="emoji" onclick="goToPage('page7')">😭🥹</button>
-    <button class="emoji" onclick="goToPage('page7')">💯😍</button>
+    <button onclick="showPage('page7')">😭🥹</button>
+    <button onclick="showPage('page7')">💯😍</button>
 </div>
 
 <div class="container hidden" id="page7">
@@ -95,13 +92,15 @@
 </div>
 
 <script>
-    function goToPage(pageId) {
+    function showPage(pageId) {
         // Скрыть все страницы
-        const pages = document.querySelectorAll('.container');
-        pages.forEach(page => page.classList.add('hidden'));
+        var pages = document.querySelectorAll('.container');
+        pages.forEach(function(page) {
+            page.classList.add('hidden');
+        });
         
         // Показать новую страницу
-        const newPage = document.getElementById(pageId);
+        var newPage = document.getElementById(pageId);
         newPage.classList.remove('hidden');
     }
 </script>
