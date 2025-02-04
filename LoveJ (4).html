@@ -80,16 +80,6 @@
             animation: fadeIn 1.5s ease-in-out;
         }
 
-        /* Исчезновение */
-        .fade-out {
-            animation: fadeOut 0.5s forwards;
-        }
-
-        @keyframes fadeOut {
-            from { opacity: 1; }
-            to { opacity: 0; display: none; }
-        }
-
         /* Фоновые изображения */
         #background {
             position: absolute;
@@ -178,52 +168,37 @@
             document.getElementById("intro").style.display = "block";
         };
 
+        function showPage(pageId) {
+            let allPages = document.querySelectorAll('.hidden-content');
+            allPages.forEach(page => {
+                page.style.display = 'none';
+            });
+            document.getElementById(pageId).style.display = 'block';
+        }
+
         function stepOne() {
-            document.getElementById("intro").classList.add("fade-out");
-            setTimeout(() => {
-                document.getElementById("intro").style.display = "none";
-                document.getElementById("step1").style.display = "block";
-            }, 500);
+            document.getElementById("intro").style.display = "none";
+            showPage("step1");
         }
 
         function stepTwo() {
-            document.getElementById("step1").classList.add("fade-out");
-            setTimeout(() => {
-                document.getElementById("step1").style.display = "none";
-                document.getElementById("step2").style.display = "block";
-            }, 500);
+            showPage("step2");
         }
 
         function stepThree() {
-            document.getElementById("step2").classList.add("fade-out");
-            setTimeout(() => {
-                document.getElementById("step2").style.display = "none";
-                document.getElementById("step3").style.display = "block";
-            }, 500);
+            showPage("step3");
         }
 
         function finalMessage() {
-            document.getElementById("step3").classList.add("fade-out");
-            setTimeout(() => {
-                document.getElementById("step3").style.display = "none";
-                document.getElementById("finalMessage").style.display = "block";
-            }, 500);
+            showPage("finalMessage");
         }
 
         function showLoveMessage() {
-            document.getElementById("finalMessage").classList.add("fade-out");
-            setTimeout(() => {
-                document.getElementById("finalMessage").style.display = "none";
-                document.getElementById("loveMessage").style.display = "block";
-            }, 500);
+            showPage("loveMessage");
         }
 
         function stepFour() {
-            document.getElementById("loveMessage").classList.add("fade-out");
-            setTimeout(() => {
-                document.getElementById("loveMessage").style.display = "none";
-                document.getElementById("valentinesMessage").style.display = "block";
-            }, 500);
+            showPage("valentinesMessage");
         }
 
         function endMessage() {
