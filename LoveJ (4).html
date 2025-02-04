@@ -52,6 +52,8 @@
             transition: 0.3s;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
             font-family: 'Dancing Script', cursive;
+            opacity: 0;  /* Кнопки невидимы изначально */
+            pointer-events: none; /* Кнопки неактивны до завершения анимации */
         }
 
         .open-btn {
@@ -109,7 +111,7 @@
         <div class="bunny">🐰</div>
         <div class="message">Привет, Жан 😆<br>Продолжай с низу там ↓</div>
         <div class="buttons">
-            <button class="open-btn" onclick="stepOne()">Открыть</button>
+            <button class="open-btn" onclick="showPage('step1')">Открыть</button>
             <button class="no-btn" onclick="alert('Ну ладно... 😢')">Не открывать</button>
         </div>
     </div>
@@ -118,7 +120,7 @@
     <div class="hidden-content fade" id="step1">
         <p>Жан, ты уверена, что хочешь открыть его???</p>
         <div class="buttons">
-            <button class="open-btn" onclick="stepTwo()">Да</button>
+            <button class="open-btn" onclick="showPage('step2')">Да</button>
             <button class="no-btn" onclick="alert('Ну ладно... Может в следующий раз! 😢')">Нет</button>
         </div>
     </div>
@@ -127,7 +129,7 @@
     <div class="hidden-content fade" id="step2">
         <p>Ты уверена???</p>
         <div class="buttons">
-            <button class="open-btn" onclick="stepThree()">Да</button>
+            <button class="open-btn" onclick="showPage('step3')">Да</button>
             <button class="no-btn" onclick="alert('Ну как хочешь... 😢')">Нет</button>
         </div>
     </div>
@@ -136,7 +138,7 @@
     <div class="hidden-content fade" id="step3">
         <p>Точно точнооо??</p>
         <div class="buttons">
-            <button class="open-btn" onclick="finalMessage()">Да</button>
+            <button class="open-btn" onclick="showPage('finalMessage')">Да</button>
             <button class="no-btn" onclick="alert('Ну как хочешь... 😢')">Нет</button>
         </div>
     </div>
@@ -144,15 +146,15 @@
     <!-- Финальное сообщение -->
     <div class="hidden-content fade" id="finalMessage">
         <p>Ладно, ты выиграла, так уж и быть...<br>Урааа!!!</p>
-        <button class="open-btn" onclick="showLoveMessage()">Урааа</button>
+        <button class="open-btn" onclick="showPage('loveMessage')">Урааа</button>
     </div>
 
     <!-- Сообщение о Жун -->
     <div class="hidden-content fade" id="loveMessage">
         <p>Жун, ты лучшая из всех, кого я когда-либо встречал!<br>Твои глаза, твое лицо, твой характер...<br>В начале я даже не представлял, что все дойдет до такого, и я рад, что мы проходим этот путь вместе, проводим время тоже вместе, и пусть так будет всегда! ❤️</p>
         <div class="buttons">
-            <button class="no-btn" onclick="stepFour()">😭🥹</button>
-            <button class="open-btn" onclick="stepFour()">💯😍</button>
+            <button class="no-btn" onclick="showPage('valentinesMessage')">😭🥹</button>
+            <button class="open-btn" onclick="showPage('valentinesMessage')">💯😍</button>
         </div>
     </div>
 
@@ -164,46 +166,35 @@
     </div>
 
     <script>
-        window.onload = function() {
-            document.getElementById("intro").style.display = "block";
-        };
-
+        // Функция для отображения нужной страницы
         function showPage(pageId) {
+            // Скрываем все страницы
             let allPages = document.querySelectorAll('.hidden-content');
             allPages.forEach(page => {
                 page.style.display = 'none';
             });
-            document.getElementById(pageId).style.display = 'block';
+
+            // Отображаем нужную страницу
+            let page = document.getElementById(pageId);
+            page.style.display = 'block';
+
+            // Включаем кнопки после завершения анимации
+            let buttons = page.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.style.opacity = 1;
+                button.style.pointerEvents = 'auto';
+            });
         }
 
-        function stepOne() {
-            document.getElementById("intro").style.display = "none";
-            showPage("step1");
-        }
+        // Начальная страница
+        window.onload = function() {
+            showPage('intro');
+        };
 
-        function stepTwo() {
-            showPage("step2");
-        }
-
-        function stepThree() {
-            showPage("step3");
-        }
-
-        function finalMessage() {
-            showPage("finalMessage");
-        }
-
-        function showLoveMessage() {
-            showPage("loveMessage");
-        }
-
-        function stepFour() {
-            showPage("valentinesMessage");
-        }
-
+        // Завершение
         function endMessage() {
             alert("Завершено!");
-            window.location.reload();
+            window.location.reload(); // Перезагружаем страницу
         }
     </script>
 </body>
