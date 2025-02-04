@@ -89,6 +89,19 @@
             from { opacity: 1; }
             to { opacity: 0; display: none; }
         }
+
+        /* Фоновые изображения */
+        #background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://via.placeholder.com/1500x1000/ffccdd/ffccdd');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+        }
     </style>
 </head>
 <body>
@@ -98,46 +111,66 @@
         <source src="https://archive.org/download/arctic-monkeys-i-wanna-be-yours/Arctic%20Monkeys%20-%20I%20Wanna%20Be%20Yours.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Первый экран -->
+    <!-- Фоновое изображение -->
+    <div id="background"></div>
+
+    <!-- Стартовая страница -->
     <div id="intro" class="fade">
         <div class="bunny">🐰</div>
-        <div class="message">Привет! Это было не легко сделать, но я попытался.<br>Поэтому выбирай! ↑</div>
+        <div class="message">Привет, Жан 😆<br>Продолжай с низу там ↓</div>
         <div class="buttons">
             <button class="open-btn" onclick="stepOne()">Открыть</button>
             <button class="no-btn" onclick="alert('Ну ладно... 😢')">Не открывать</button>
         </div>
     </div>
 
-    <!-- Ты уверен? -->
+    <!-- Шаг 1 -->
     <div class="hidden-content fade" id="step1">
-        <p>Ты уверен, что хочешь открыть? 🤔</p>
+        <p>Жан, ты уверена, что хочешь открыть его???</p>
         <div class="buttons">
             <button class="open-btn" onclick="stepTwo()">Да</button>
             <button class="no-btn" onclick="alert('Ну ладно... Может в следующий раз! 😢')">Нет</button>
         </div>
     </div>
 
-    <!-- Точно точно? -->
+    <!-- Шаг 2 -->
     <div class="hidden-content fade" id="step2">
-        <p>Точно точно? 😏</p>
+        <p>Ты уверена???</p>
         <div class="buttons">
-            <button class="open-btn" onclick="showMessage()">Дааа</button>
+            <button class="open-btn" onclick="stepThree()">Да</button>
             <button class="no-btn" onclick="alert('Ну как хочешь... 😢')">Нет</button>
         </div>
     </div>
 
-    <!-- Воспоминание перед 14 февраля -->
-    <div class="hidden-content fade" id="memory">
-        <h2>Помнишь 3 ноября? 🥰</h2>
-        <p>Именно тогда началась наша история... <br> Время летит, но я каждый день благодарен за тебя. ❤️</p>
-        <button class="open-btn" onclick="showFinal()">Дальше</button>
+    <!-- Шаг 3 -->
+    <div class="hidden-content fade" id="step3">
+        <p>Точно точнооо??</p>
+        <div class="buttons">
+            <button class="open-btn" onclick="finalMessage()">Да</button>
+            <button class="no-btn" onclick="alert('Ну как хочешь... 😢')">Нет</button>
+        </div>
     </div>
 
-    <!-- Финальное поздравление -->
-    <div class="hidden-content fade" id="surprise">
-        <h1>С 14 февраля, любимая! ❤️</h1>
-        <p>Ты – самый прекрасный человек в моей жизни!</p>
-        <div style="font-size: 50px;">💖</div>
+    <!-- Финальное сообщение -->
+    <div class="hidden-content fade" id="finalMessage">
+        <p>Ладно, ты выиграла, так уж и быть...<br>Урааа!!!</p>
+        <button class="open-btn" onclick="showLoveMessage()">Урааа</button>
+    </div>
+
+    <!-- Сообщение о Жун -->
+    <div class="hidden-content fade" id="loveMessage">
+        <p>Жун, ты лучшая из всех, кого я когда-либо встречал!<br>Твои глаза, твое лицо, твой характер...<br>В начале я даже не представлял, что все дойдет до такого, и я рад, что мы проходим этот путь вместе, проводим время тоже вместе, и пусть так будет всегда! ❤️</p>
+        <div class="buttons">
+            <button class="no-btn" onclick="stepFour()">😭🥹</button>
+            <button class="open-btn" onclick="stepFour()">💯😍</button>
+        </div>
+    </div>
+
+    <!-- Поздравление с 14 февраля -->
+    <div class="hidden-content fade" id="valentinesMessage">
+        <h1>С 14 февраля, Жун! ❤️</h1>
+        <p>Ты — самый прекрасный человек в моей жизни, и я всегда буду рядом с тобой!<br>Ты заслуживаешь только счастья и радости!</p>
+        <button class="open-btn" onclick="endMessage()">Тебя люблю!</button>
     </div>
 
     <script>
@@ -157,20 +190,41 @@
             }, 500);
         }
 
-        function showMessage() {
+        function stepThree() {
             document.getElementById("step2").classList.add("fade-out");
             setTimeout(() => {
                 document.getElementById("step2").style.display = "none";
-                document.getElementById("memory").style.display = "block";
+                document.getElementById("step3").style.display = "block";
             }, 500);
         }
 
-        function showFinal() {
-            document.getElementById("memory").classList.add("fade-out");
+        function finalMessage() {
+            document.getElementById("step3").classList.add("fade-out");
             setTimeout(() => {
-                document.getElementById("memory").style.display = "none";
-                document.getElementById("surprise").style.display = "block";
+                document.getElementById("step3").style.display = "none";
+                document.getElementById("finalMessage").style.display = "block";
             }, 500);
+        }
+
+        function showLoveMessage() {
+            document.getElementById("finalMessage").classList.add("fade-out");
+            setTimeout(() => {
+                document.getElementById("finalMessage").style.display = "none";
+                document.getElementById("loveMessage").style.display = "block";
+            }, 500);
+        }
+
+        function stepFour() {
+            document.getElementById("loveMessage").classList.add("fade-out");
+            setTimeout(() => {
+                document.getElementById("loveMessage").style.display = "none";
+                document.getElementById("valentinesMessage").style.display = "block";
+            }, 500);
+        }
+
+        function endMessage() {
+            alert("Завершено!");
+            window.location.reload();
         }
     </script>
 </body>
