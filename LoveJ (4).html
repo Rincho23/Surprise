@@ -178,11 +178,19 @@
             let page = document.getElementById(pageId);
             page.style.display = 'block';
 
-            // Включаем кнопки после завершения анимации
+            // Ожидаем завершение анимации, чтобы включить кнопки
             let buttons = page.querySelectorAll('button');
             buttons.forEach(button => {
-                button.style.opacity = 1;
-                button.style.pointerEvents = 'auto';
+                button.style.pointerEvents = 'none'; // Сначала кнопки неактивны
+                button.style.opacity = '0'; // Кнопки невидимы
+            });
+
+            // Слушаем завершение анимации
+            page.addEventListener('animationend', () => {
+                buttons.forEach(button => {
+                    button.style.opacity = '1'; // Делаем кнопки видимыми
+                    button.style.pointerEvents = 'auto'; // Делаем кнопки активными
+                });
             });
         }
 
