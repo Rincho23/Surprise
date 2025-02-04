@@ -3,174 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сюрприз</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+    <title>Сюрприз для Жан</title>
     <style>
         body {
-            text-align: center;
-            font-family: 'Dancing Script', cursive;
-            background-color: #ffccdd;
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             height: 100vh;
-            overflow: hidden;
-            position: relative;
+            margin: 0;
+            text-align: center;
         }
-
-        /* Плавное появление */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
         }
-
-        .fade {
-            animation: fadeIn 1s ease-in-out;
+        h1 {
+            color: #FF1493;
         }
-
-        /* Кролик */
-        .bunny {
-            font-size: 50px;
-            animation: hop 1s infinite alternate;
-        }
-
-        @keyframes hop {
-            from { transform: translateY(0); }
-            to { transform: translateY(-10px); }
-        }
-
-        /* Кнопки */
         button {
-            font-size: 20px;
-            padding: 12px 30px;
-            margin: 10px;
+            padding: 10px 20px;
+            background-color: #FF1493;
+            color: white;
             border: none;
+            border-radius: 5px;
             cursor: pointer;
-            border-radius: 15px;
-            transition: 0.3s;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            font-family: 'Dancing Script', cursive;
+            margin: 10px;
         }
-
-        .open-btn {
-            background-color: #ff4d6d;
-            color: white;
+        button:hover {
+            background-color: #ff66b2;
         }
-
-        .open-btn:hover {
-            background-color: #ff1a47;
-        }
-
-        .no-btn {
-            background-color: #aaa;
-            color: white;
-        }
-
-        .no-btn:hover {
-            background-color: #888;
-        }
-
-        /* Скрытые элементы */
-        .hidden-content {
+        .hidden {
             display: none;
+        }
+        .emoji {
             font-size: 24px;
-            font-weight: bold;
-            animation: fadeIn 1.5s ease-in-out;
-        }
-
-        /* Исчезновение */
-        .fade-out {
-            animation: fadeOut 0.5s forwards;
-        }
-
-        @keyframes fadeOut {
-            from { opacity: 1; }
-            to { opacity: 0; display: none; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Аудио -->
-    <audio autoplay loop>
-        <source src="https://archive.org/download/arctic-monkeys-i-wanna-be-yours/Arctic%20Monkeys%20-%20I%20Wanna%20Be%20Yours.mp3" type="audio/mpeg">
-    </audio>
+<div class="container" id="page1">
+    <h1>Привет, Жан 😆</h1>
+    <p>Продолжай с низу там ↓</p>
+    <button onclick="window.location.href='#page2'">Открыть</button>
+    <button onclick="window.location.href='https://www.google.com'">Не открывать</button>
+</div>
 
-    <!-- Первый экран -->
-    <div id="intro" class="fade">
-        <div class="bunny">🐰</div>
-        <div class="message">Привет! Это было не легко сделать, но я попытался.<br>Поэтому выбирай! ↑</div>
-        <div class="buttons">
-            <button class="open-btn" onclick="stepOne()">Открыть</button>
-            <button class="no-btn" onclick="alert('Ну ладно... 😢')">Не открывать</button>
-        </div>
-    </div>
+<div class="container hidden" id="page2">
+    <h1>Жан, ты уверена, что хочешь открыть его???</h1>
+    <button onclick="window.location.href='#page3'">Да</button>
+    <button onclick="window.location.href='https://www.google.com'">Нет</button>
+</div>
 
-    <!-- Ты уверен? -->
-    <div class="hidden-content fade" id="step1">
-        <p>Ты уверен, что хочешь открыть? 🤔</p>
-        <div class="buttons">
-            <button class="open-btn" onclick="stepTwo()">Да</button>
-            <button class="no-btn" onclick="alert('Ну ладно... Может в следующий раз! 😢')">Нет</button>
-        </div>
-    </div>
+<div class="container hidden" id="page3">
+    <h1>Ты уверена???</h1>
+    <button onclick="window.location.href='#page4'">Да</button>
+    <button onclick="window.location.href='https://www.google.com'">Нет</button>
+</div>
 
-    <!-- Точно точно? -->
-    <div class="hidden-content fade" id="step2">
-        <p>Точно точно? 😏</p>
-        <div class="buttons">
-            <button class="open-btn" onclick="showMessage()">Дааа</button>
-            <button class="no-btn" onclick="alert('Ну как хочешь... 😢')">Нет</button>
-        </div>
-    </div>
+<div class="container hidden" id="page4">
+    <h1>Точно точнооо??</h1>
+    <button onclick="window.location.href='#page5'">Да</button>
+    <button onclick="window.location.href='https://www.google.com'">Нет</button>
+</div>
 
-    <!-- Воспоминание перед 14 февраля -->
-    <div class="hidden-content fade" id="memory">
-        <h2>Помнишь 3 ноября? 🥰</h2>
-        <p>Именно тогда началась наша история... <br> Время летит, но я каждый день благодарен за тебя. ❤️</p>
-        <button class="open-btn" onclick="showFinal()">Дальше</button>
-    </div>
+<div class="container hidden" id="page5">
+    <h1>Ладно, ты выиграла, так уж и быть...</h1>
+    <p>Урааа!!!</p>
+    <button onclick="window.location.href='#page6'">Дальше</button>
+</div>
 
-    <!-- Финальное поздравление -->
-    <div class="hidden-content fade" id="surprise">
-        <h1>С 14 февраля, любимая! ❤️</h1>
-        <p>Ты – самый прекрасный человек в моей жизни!</p>
-        <div style="font-size: 50px;">💖</div>
-    </div>
+<div class="container hidden" id="page6">
+    <h1>Жун, ты лучшая из всех, кого я когда-либо встречал!</h1>
+    <p>Твои глаза, твое лицо, твой характер...</p>
+    <p>В начале я даже не представлял, что все дойдет до такого, и я рад, что мы проходим этот путь вместе, проводим время тоже вместе, и пусть так будет всегда! ❤️</p>
+    <button class="emoji" onclick="window.location.href='#page7'">😭🥹</button>
+    <button class="emoji" onclick="window.location.href='#page7'">💯😍</button>
+</div>
 
-    <script>
-        function stepOne() {
-            document.getElementById("intro").classList.add("fade-out");
-            setTimeout(() => {
-                document.getElementById("intro").style.display = "none";
-                document.getElementById("step1").style.display = "block";
-            }, 500);
-        }
+<div class="container hidden" id="page7">
+    <h1>С 14 февраля, Жун! ❤️</h1>
+    <p>Ты — самый прекрасный человек в моей жизни, и я всегда буду рядом с тобой!</p>
+    <p>Ты заслуживаешь только счастья и радости!</p>
+    <button onclick="window.location.href='#'">Тебя люблю!</button>
+</div>
 
-        function stepTwo() {
-            document.getElementById("step1").classList.add("fade-out");
-            setTimeout(() => {
-                document.getElementById("step1").style.display = "none";
-                document.getElementById("step2").style.display = "block";
-            }, 500);
-        }
-
-        function showMessage() {
-            document.getElementById("step2").classList.add("fade-out");
-            setTimeout(() => {
-                document.getElementById("step2").style.display = "none";
-                document.getElementById("memory").style.display = "block";
-            }, 500);
-        }
-
-        function showFinal() {
-            document.getElementById("memory").classList.add("fade-out");
-            setTimeout(() => {
-                document.getElementById("memory").style.display = "none";
-                document.getElementById("surprise").style.display = "block";
-            }, 500);
-        }
-    </script>
 </body>
 </html>
