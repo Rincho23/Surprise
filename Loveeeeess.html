@@ -36,7 +36,6 @@
             transform: translateY(0);
         }
 
-        /* Анимация фона */
         body::before {
             content: '';
             position: absolute;
@@ -69,34 +68,34 @@
             margin-top: 30px;
             display: flex;
             justify-content: space-between;
-            width: 60%; /* Ширина для правильного расположения */
+            width: 100%;
+            max-width: 500px;
         }
 
-        .buttons button {
+        button {
             background-color: white;
             border: 3px solid black;
             padding: 20px 40px;
             font-size: 22px;
-            margin: 15px;
             cursor: pointer;
             border-radius: 10px;
             transition: all 0.4s ease-in-out;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            width: 45%; /* Сделаем кнопки одинаковыми по ширине */
+            width: 200px;
         }
 
-        .buttons button:hover {
+        button:hover {
             background-color: #ffcccb;
             transform: translateY(-5px) scale(1.05);
             box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
         }
 
-        .buttons button:active {
+        button:active {
             transform: translateY(2px) scale(1);
             background-color: #ffb6b9;
         }
 
-        .buttons button:focus {
+        button:focus {
             outline: none;
         }
 
@@ -137,7 +136,6 @@
 </head>
 <body>
 
-    <!-- Страница 1 -->
     <div id="page1" class="container visible">
         <div class="bunny">🐰</div>
         <h1>Привет, Жан 😆</h1>
@@ -148,7 +146,6 @@
         </div>
     </div>
 
-    <!-- Страница 2 -->
     <div id="page2" class="container">
         <h1>Жан, ты уверена, что хочешь открыть его???</h1>
         <div class="buttons">
@@ -157,7 +154,6 @@
         </div>
     </div>
 
-    <!-- Страница 3 -->
     <div id="page3" class="container">
         <h1>Ты уверена???</h1>
         <div class="buttons">
@@ -166,7 +162,6 @@
         </div>
     </div>
 
-    <!-- Страница 4 -->
     <div id="page4" class="container">
         <h1>Точно точнооо??</h1>
         <div class="buttons">
@@ -175,13 +170,11 @@
         </div>
     </div>
 
-    <!-- Страница 5 -->
     <div id="page5" class="container">
         <h1>Ладно, ты выиграла, так уж и быть... Урааа!!!</h1>
         <button onclick="nextPage(6)">Урааа</button>
     </div>
 
-    <!-- Страница 6 -->
     <div id="page6" class="container">
         <h1>Жун, ты лучшая!</h1>
         <p>Твои глаза, твое лицо, твой характер...  
@@ -192,7 +185,6 @@
         </div>
     </div>
 
-    <!-- Страница 7 (финал) -->
     <div id="page7" class="container">
         <h1>С 14 февраля, Жун! ❤️</h1>
         <p>Ты — самый прекрасный человек в моей жизни, и я всегда буду рядом с тобой! Ты заслуживаешь только счастья и радости!</p>
@@ -203,11 +195,11 @@
         function nextPage(pageNumber) {
             document.querySelectorAll('.container').forEach(div => {
                 div.classList.remove('visible');
-                div.style.opacity = 0; // Скрытие элементов
+                div.style.opacity = 0;
             });
             const newPage = document.getElementById('page' + pageNumber);
             newPage.classList.add('visible');
-            setTimeout(() => { newPage.style.opacity = 1; }, 100); // Появление нового элемента
+            setTimeout(() => { newPage.style.opacity = 1; }, 100);
         }
     </script>
 
