@@ -69,6 +69,22 @@
         .hidden {
             display: none;
         }
+
+        /* Новые стили для контейнеров страниц */
+        .container {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffe6f2;
+        }
+
+        .visible {
+            display: flex !important;
+        }
     </style>
 </head>
 <body>
@@ -191,10 +207,15 @@
         }
 
         function nextPage(page) {
-            document.querySelectorAll('.container').forEach(page => page.classList.remove('visible'));
+            // Скрываем все страницы
+            document.querySelectorAll('.container').forEach(element => {
+                element.classList.remove('visible');
+            });
+            // Показываем нужную страницу
             document.getElementById(`page${page}`).classList.add('visible');
         }
 
+        // Запуск загрузки при открытии страницы
         startLoading();
     </script>
 
