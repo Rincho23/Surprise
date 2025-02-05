@@ -20,20 +20,19 @@
         }
 
         .container {
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            visibility: hidden;
             opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s ease-in-out;
+            transition: opacity 1s ease-in-out, visibility 0s linear 1s;
         }
 
         .visible {
-            display: flex;
+            visibility: visible;
             opacity: 1;
-            transform: translateY(0);
+            transition: opacity 1s ease-in-out, visibility 0s linear;
         }
 
         .bunny {
@@ -158,11 +157,12 @@
         function nextPage(pageNumber) {
             document.querySelectorAll('.container').forEach(div => {
                 div.classList.remove('visible');
-                div.style.opacity = 0;
             });
+
             const newPage = document.getElementById('page' + pageNumber);
-            newPage.classList.add('visible');
-            setTimeout(() => { newPage.style.opacity = 1; }, 100);
+            if (newPage) {
+                newPage.classList.add('visible');
+            }
         }
     </script>
 
