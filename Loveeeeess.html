@@ -19,21 +19,21 @@
             position: relative;
         }
 
-        /* Контейнеры страниц */
         .container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            visibility: hidden;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
             opacity: 0;
-            transition: opacity 1s ease-in-out, visibility 0s linear 1s;
+            transform: translateY(50px);
+            transition: all 1s ease-in-out;
         }
 
         .visible {
-            visibility: visible;
+            display: flex;
             opacity: 1;
-            transition: opacity 1s ease-in-out, visibility 0s linear;
+            transform: translateY(0);
         }
 
         .bunny {
@@ -94,7 +94,7 @@
             max-width: 500px;
         }
 
-        /* Стили для сердечек */
+        /* Летающие сердечки */
         .hearts-container {
             position: fixed;
             top: 0;
@@ -109,7 +109,6 @@
             position: absolute;
             bottom: -50px;
             font-size: 24px;
-            color: red;
             animation: floatUp linear infinite;
         }
 
@@ -123,6 +122,7 @@
                 opacity: 0;
             }
         }
+
     </style>
 </head>
 <body>
@@ -189,24 +189,26 @@
         function nextPage(pageNumber) {
             document.querySelectorAll('.container').forEach(div => {
                 div.classList.remove('visible');
+                div.style.opacity = 0;
             });
-
             const newPage = document.getElementById('page' + pageNumber);
-            if (newPage) {
-                newPage.classList.add('visible');
-            }
+            newPage.classList.add('visible');
+            setTimeout(() => { newPage.style.opacity = 1; }, 100);
         }
 
         function createHearts() {
             const container = document.getElementById("hearts-container");
+            const colors = ["#ff0000", "#ff66b2", "#ff9933", "#9900cc"]; // Красный, розовый, оранжевый, фиолетовый
+            const emojis = ["❤️", "💖", "💜", "💛"];
 
             setInterval(() => {
                 const heart = document.createElement("div");
                 heart.className = "heart";
-                heart.innerHTML = "❤️";
+                heart.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
                 heart.style.left = Math.random() * 100 + "vw";
                 heart.style.animationDuration = (3 + Math.random() * 3) + "s";
-                heart.style.fontSize = (16 + Math.random() * 20) + "px";
+                heart.style.fontSize = (16 + Math.random() * 30) + "px";
+                heart.style.color = colors[Math.floor(Math.random() * colors.length)];
 
                 container.appendChild(heart);
 
