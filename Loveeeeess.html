@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сюрприз</title>
+    <title>Сюрприз для Жан 💖</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
             text-align: center;
-            background-color: #ffe6f2;
+            background: linear-gradient(135deg, #ff99cc, #ff6699, #ff3366);
             margin: 0;
             padding: 0;
             overflow: hidden;
@@ -17,6 +17,7 @@
             justify-content: center;
             align-items: center;
             position: relative;
+            color: white;
         }
 
         /* Экран загрузки */
@@ -26,7 +27,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: white;
+            background: rgba(255, 255, 255, 0.9);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -35,24 +36,15 @@
             z-index: 9999;
         }
 
-        .loading-text {
-            font-size: 24px;
-            color: #990033;
-            margin-top: 15px;
+        .loading-heart {
+            font-size: 100px;
+            animation: pulse 1s infinite alternate ease-in-out;
+            color: #ff3366;
         }
 
-        .loader {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #ff66b2;
-            border-top-color: transparent;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.2); opacity: 0.7; }
         }
 
         /* Скрытие экрана загрузки */
@@ -125,15 +117,17 @@
             font-size: 38px;
             margin-bottom: 15px;
             font-weight: bold;
-            color: #990033;
+            color: #ffffff;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         p {
             font-size: 22px;
             margin-bottom: 30px;
-            color: #660033;
+            color: #ffffff;
             line-height: 1.6;
             max-width: 500px;
+            text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.2);
         }
 
         /* Летающие сердечки */
@@ -164,14 +158,29 @@
                 opacity: 0;
             }
         }
+
+        /* Частицы */
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: twinkle 3s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
     </style>
 </head>
 <body>
 
     <!-- Экран загрузки -->
     <div class="loading-screen" id="loading-screen">
-        <div class="loader"></div>
-        <div class="loading-text">Загрузка...</div>
+        <div class="loading-heart">❤️</div>
     </div>
 
     <div class="hearts-container" id="hearts-container"></div>
@@ -194,15 +203,6 @@
         </div>
     </div>
 
-    <div id="page3" class="container">
-        <h1>Ты уверена?? 😳</h1>
-        <p>Может, лучше не рисковать?..</p>
-        <div class="buttons">
-            <button onclick="nextPage(4)">Я уверена!</button>
-            <button onclick="alert('Ну ладно... 😢')">Нет</button>
-        </div>
-    </div>
-
     <script>
         function nextPage(pageNumber) {
             document.querySelectorAll('.container').forEach(div => {
@@ -216,31 +216,20 @@
 
         function createHearts() {
             const container = document.getElementById("hearts-container");
-            const colors = ["#ff0000", "#ff66b2", "#ff9933", "#9900cc"]; // Красный, розовый, оранжевый, фиолетовый
-            const emojis = ["❤️", "💖", "💜", "💛"];
-
             setInterval(() => {
                 const heart = document.createElement("div");
                 heart.className = "heart";
-                heart.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                heart.innerHTML = "💖";
                 heart.style.left = Math.random() * 100 + "vw";
                 heart.style.animationDuration = (3 + Math.random() * 3) + "s";
-                heart.style.fontSize = (16 + Math.random() * 30) + "px";
-                heart.style.color = colors[Math.floor(Math.random() * colors.length)];
-
                 container.appendChild(heart);
-
-                setTimeout(() => {
-                    heart.remove();
-                }, 6000);
+                setTimeout(() => { heart.remove(); }, 6000);
             }, 300);
         }
 
         function hideLoadingScreen() {
             const loadingScreen = document.getElementById("loading-screen");
-            setTimeout(() => {
-                loadingScreen.classList.add("hide");
-            }, 2000);
+            setTimeout(() => { loadingScreen.classList.add("hide"); }, 2000);
         }
 
         window.onload = () => {
