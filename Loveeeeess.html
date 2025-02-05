@@ -68,11 +68,11 @@
         .buttons {
             margin-top: 30px;
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            justify-content: space-between;
+            width: 60%; /* Ширина для правильного расположения */
         }
 
-        button {
+        .buttons button {
             background-color: white;
             border: 3px solid black;
             padding: 20px 40px;
@@ -82,21 +82,21 @@
             border-radius: 10px;
             transition: all 0.4s ease-in-out;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            width: 250px;
+            width: 45%; /* Сделаем кнопки одинаковыми по ширине */
         }
 
-        button:hover {
+        .buttons button:hover {
             background-color: #ffcccb;
             transform: translateY(-5px) scale(1.05);
             box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
         }
 
-        button:active {
+        .buttons button:active {
             transform: translateY(2px) scale(1);
             background-color: #ffb6b9;
         }
 
-        button:focus {
+        .buttons button:focus {
             outline: none;
         }
 
