@@ -1,209 +1,195 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сюрприз</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
-    <style>
-        body {
-            text-align: center;
-            font-family: 'Dancing Script', cursive;
-            background-color: #ffccdd;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            overflow: hidden;
-            position: relative;
-            margin: 0;
-        }
-
-        /* Плавное появление */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .fade {
-            animation: fadeIn 1s ease-in-out;
-        }
-
-        /* Кролик */
-        .bunny {
-            font-size: 50px;
-            animation: hop 1s infinite alternate;
-        }
-
-        @keyframes hop {
-            from { transform: translateY(0); }
-            to { transform: translateY(-10px); }
-        }
-
-        /* Кнопки */
-        button {
-            font-size: 20px;
-            padding: 12px 30px;
-            margin: 10px;
-            border: none;
-            cursor: pointer;
-            border-radius: 15px;
-            transition: 0.3s;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            font-family: 'Dancing Script', cursive;
-            opacity: 0;  /* Кнопки невидимы изначально */
-            pointer-events: none; /* Кнопки неактивны до завершения анимации */
-        }
-
-        .open-btn {
-            background-color: #ff4d6d;
-            color: white;
-        }
-
-        .open-btn:hover {
-            background-color: #ff1a47;
-        }
-
-        .no-btn {
-            background-color: #aaa;
-            color: white;
-        }
-
-        .no-btn:hover {
-            background-color: #888;
-        }
-
-        /* Скрытые элементы */
-        .hidden-content {
-            display: none;
-            font-size: 24px;
-            font-weight: bold;
-            animation: fadeIn 1.5s ease-in-out;
-        }
-
-        /* Фоновые изображения */
-        #background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://via.placeholder.com/1500x1000/ffccdd/ffccdd');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.3;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Сюрприз</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      text-align: center;
+      font-family: 'Dancing Script', cursive;
+      background-color: #ffccdd;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Фоновое изображение */
+    #background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://via.placeholder.com/1500x1000/ffccdd/ffccdd');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.3;
+      z-index: -1;
+    }
+    /* Анимация появления */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade {
+      animation: fadeIn 1s ease-in-out forwards;
+    }
+    /* Кролик */
+    .bunny {
+      font-size: 50px;
+      animation: hop 1s infinite alternate;
+    }
+    @keyframes hop {
+      from { transform: translateY(0); }
+      to { transform: translateY(-10px); }
+    }
+    /* Кнопки */
+    button {
+      font-size: 20px;
+      padding: 12px 30px;
+      margin: 10px;
+      border: none;
+      cursor: pointer;
+      border-radius: 15px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+      font-family: 'Dancing Script', cursive;
+      background-color: #ff4d6d;
+      color: white;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+    button:hover {
+      background-color: #ff1a47;
+    }
+    /* Страницы */
+    .page {
+      display: none;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .page p, .page h1 {
+      margin: 20px;
+    }
+    .buttons {
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Аудио -->
-    <audio autoplay loop id="background-music">
-        <source src="https://archive.org/download/arctic-monkeys-i-wanna-be-yours/Arctic%20Monkeys%20-%20I%20Wanna%20Be%20Yours.mp3" type="audio/mpeg">
-    </audio>
+  <!-- Фоновое изображение -->
+  <div id="background"></div>
 
-    <!-- Фоновое изображение -->
-    <div id="background"></div>
+  <!-- Аудио (фон) -->
+  <audio autoplay loop id="background-music">
+    <source src="https://archive.org/download/arctic-monkeys-i-wanna-be-yours/Arctic%20Monkeys%20-%20I%20Wanna%20Be%20Yours.mp3" type="audio/mpeg">
+  </audio>
 
-    <!-- Стартовая страница -->
-    <div id="intro" class="fade">
-        <div class="bunny">🐰</div>
-        <div class="message">Привет, Жан 😆<br>Продолжай с низу там ↓</div>
-        <div class="buttons">
-            <button class="open-btn" onclick="showPage('step1')">Открыть</button>
-            <button class="no-btn" onclick="alert('Ну ладно... 😢')">Не открывать</button>
-        </div>
+  <!-- Стартовая страница -->
+  <div id="intro" class="page fade" style="display: block;">
+    <div class="bunny">🐰</div>
+    <p>Привет, Жан 😆<br>Продолжай с низу там ↓</p>
+    <div class="buttons">
+      <button onclick="showPage('step1')">Открыть</button>
+      <button onclick="alert('Ну ладно... 😢')">Не открывать</button>
     </div>
+  </div>
 
-    <!-- Шаг 1 -->
-    <div class="hidden-content fade" id="step1">
-        <p>Жан, ты уверена, что хочешь открыть его???</p>
-        <div class="buttons">
-            <button class="open-btn" onclick="showPage('step2')">Да</button>
-            <button class="no-btn" onclick="alert('Ну ладно... Может в следующий раз! 😢')">Нет</button>
-        </div>
+  <!-- Шаг 1 -->
+  <div id="step1" class="page fade">
+    <p>Жан, ты уверена, что хочешь открыть его???</p>
+    <div class="buttons">
+      <button onclick="showPage('step2')">Да</button>
+      <button onclick="alert('Ну ладно... Может в следующий раз! 😢')">Нет</button>
     </div>
+  </div>
 
-    <!-- Шаг 2 -->
-    <div class="hidden-content fade" id="step2">
-        <p>Ты уверена???</p>
-        <div class="buttons">
-            <button class="open-btn" onclick="showPage('step3')">Да</button>
-            <button class="no-btn" onclick="alert('Ну как хочешь... 😢')">Нет</button>
-        </div>
+  <!-- Шаг 2 -->
+  <div id="step2" class="page fade">
+    <p>Ты уверена???</p>
+    <div class="buttons">
+      <button onclick="showPage('step3')">Да</button>
+      <button onclick="alert('Ну как хочешь... 😢')">Нет</button>
     </div>
+  </div>
 
-    <!-- Шаг 3 -->
-    <div class="hidden-content fade" id="step3">
-        <p>Точно точнооо??</p>
-        <div class="buttons">
-            <button class="open-btn" onclick="showPage('finalMessage')">Да</button>
-            <button class="no-btn" onclick="alert('Ну как хочешь... 😢')">Нет</button>
-        </div>
+  <!-- Шаг 3 -->
+  <div id="step3" class="page fade">
+    <p>Точно точнооо??</p>
+    <div class="buttons">
+      <button onclick="showPage('finalMessage')">Да</button>
+      <button onclick="alert('Ну как хочешь... 😢')">Нет</button>
     </div>
+  </div>
 
-    <!-- Финальное сообщение -->
-    <div class="hidden-content fade" id="finalMessage">
-        <p>Ладно, ты выиграла, так уж и быть...<br>Урааа!!!</p>
-        <button class="open-btn" onclick="showPage('loveMessage')">Урааа</button>
+  <!-- Финальное сообщение -->
+  <div id="finalMessage" class="page fade">
+    <p>Ладно, ты выиграла, так уж и быть...<br>Урааа!!!</p>
+    <div class="buttons">
+      <button onclick="showPage('loveMessage')">Урааа</button>
     </div>
+  </div>
 
-    <!-- Сообщение о Жун -->
-    <div class="hidden-content fade" id="loveMessage">
-        <p>Жун, ты лучшая из всех, кого я когда-либо встречал!<br>Твои глаза, твое лицо, твой характер...<br>В начале я даже не представлял, что все дойдет до такого, и я рад, что мы проходим этот путь вместе, проводим время тоже вместе, и пусть так будет всегда! ❤️</p>
-        <div class="buttons">
-            <button class="no-btn" onclick="showPage('valentinesMessage')">😭🥹</button>
-            <button class="open-btn" onclick="showPage('valentinesMessage')">💯😍</button>
-        </div>
+  <!-- Сообщение о Жун -->
+  <div id="loveMessage" class="page fade">
+    <p>Жун, ты лучшая из всех, кого я когда-либо встречал!<br>
+      Твои глаза, твое лицо, твой характер...<br>
+      В начале я даже не представлял, что все дойдет до такого, и я рад, 
+      что мы проходим этот путь вместе, проводим время тоже вместе, и пусть так будет всегда! ❤️</p>
+    <div class="buttons">
+      <button onclick="showPage('valentinesMessage')">😭🥹</button>
+      <button onclick="showPage('valentinesMessage')">💯😍</button>
     </div>
+  </div>
 
-    <!-- Поздравление с 14 февраля -->
-    <div class="hidden-content fade" id="valentinesMessage">
-        <h1>С 14 февраля, Жун! ❤️</h1>
-        <p>Ты — самый прекрасный человек в моей жизни, и я всегда буду рядом с тобой!<br>Ты заслуживаешь только счастья и радости!</p>
-        <button class="open-btn" onclick="endMessage()">Тебя люблю!</button>
+  <!-- Поздравление с 14 февраля -->
+  <div id="valentinesMessage" class="page fade">
+    <h1>С 14 февраля, Жун! ❤️</h1>
+    <p>Ты — самый прекрасный человек в моей жизни, и я всегда буду рядом с тобой!<br>
+      Ты заслуживаешь только счастья и радости!</p>
+    <div class="buttons">
+      <button onclick="endMessage()">Тебя люблю!</button>
     </div>
+  </div>
 
-    <script>
-        // Функция для отображения нужной страницы
-        function showPage(pageId) {
-            // Скрываем все страницы
-            let allPages = document.querySelectorAll('.hidden-content');
-            allPages.forEach(page => {
-                page.style.display = 'none';
-            });
+  <script>
+    // Функция для показа нужной страницы
+    function showPage(pageId) {
+      // Скрываем все страницы
+      let pages = document.querySelectorAll('.page');
+      pages.forEach(p => {
+        p.style.display = 'none';
+      });
+      // Отображаем выбранную страницу
+      let current = document.getElementById(pageId);
+      current.style.display = 'block';
+      // После небольшой задержки делаем кнопки видимыми (через 500 мс)
+      setTimeout(() => {
+        let btns = current.querySelectorAll('button');
+        btns.forEach(btn => {
+          btn.style.opacity = '1';
+        });
+      }, 500);
+    }
+    
+    // Делает кнопки видимыми сразу для стартовой страницы (она сразу видна)
+    window.onload = function() {
+      let introBtns = document.querySelector('#intro .buttons button');
+      introBtns.forEach(btn => {
+        btn.style.opacity = '1';
+      });
+    };
 
-            // Отображаем нужную страницу
-            let page = document.getElementById(pageId);
-            page.style.display = 'block';
-
-            // Ожидаем завершение анимации, чтобы включить кнопки
-            let buttons = page.querySelectorAll('button');
-            buttons.forEach(button => {
-                button.style.pointerEvents = 'none'; // Сначала кнопки неактивны
-                button.style.opacity = '0'; // Кнопки невидимы
-            });
-
-            // Слушаем завершение анимации
-            page.addEventListener('animationend', () => {
-                buttons.forEach(button => {
-                    button.style.opacity = '1'; // Делаем кнопки видимыми
-                    button.style.pointerEvents = 'auto'; // Делаем кнопки активными
-                });
-            });
-        }
-
-        // Начальная страница
-        window.onload = function() {
-            showPage('intro');
-        };
-
-        // Завершение
-        function endMessage() {
-            alert("Завершено!");
-            window.location.reload(); // Перезагружаем страницу
-        }
-    </script>
+    function endMessage() {
+      alert("Завершено!");
+      window.location.reload();
+    }
+  </script>
 </body>
 </html>
