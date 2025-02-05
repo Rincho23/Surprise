@@ -36,26 +36,8 @@
             transform: translateY(0);
         }
 
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(255, 204, 204, 0.8), rgba(255, 153, 204, 0.7));
-            z-index: -1;
-            animation: backgroundAnim 15s infinite alternate;
-        }
-
-        @keyframes backgroundAnim {
-            0% { background: radial-gradient(circle, rgba(255, 204, 204, 0.8), rgba(255, 153, 204, 0.7)); }
-            50% { background: radial-gradient(circle, rgba(255, 153, 204, 0.9), rgba(255, 204, 204, 0.8)); }
-            100% { background: radial-gradient(circle, rgba(255, 204, 204, 0.8), rgba(255, 153, 204, 0.7)); }
-        }
-
         .bunny {
-            font-size: 80px;
+            font-size: 100px;
             animation: jump 1.5s infinite ease-in-out;
         }
 
@@ -65,23 +47,25 @@
         }
 
         .buttons {
-            margin-top: 30px;
+            margin-top: 25px;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
             width: 100%;
-            max-width: 500px;
+            max-width: 450px;
         }
 
         button {
             background-color: white;
             border: 3px solid black;
-            padding: 12px 20px;
-            font-size: 18px;
+            padding: 14px 22px;
+            font-size: 20px;
             cursor: pointer;
             border-radius: 10px;
             transition: all 0.4s ease-in-out;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            width: 150px;
+            min-width: 180px;
         }
 
         button:hover {
@@ -95,41 +79,19 @@
             background-color: #ffb6b9;
         }
 
-        button:focus {
-            outline: none;
-        }
-
         h1 {
-            font-size: 36px;
-            margin-bottom: 20px;
+            font-size: 38px;
+            margin-bottom: 15px;
             font-weight: bold;
             color: #990033;
-            transition: color 0.4s ease;
         }
 
         p {
-            font-size: 20px;
-            margin-bottom: 40px;
+            font-size: 22px;
+            margin-bottom: 30px;
             color: #660033;
             line-height: 1.6;
-        }
-
-        .container h1, .container p {
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeIn 1s forwards;
-        }
-
-        .container.visible h1, .container.visible p {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            max-width: 500px;
         }
 
     </style>
@@ -138,56 +100,57 @@
 
     <div id="page1" class="container visible">
         <div class="bunny">🐰</div>
-        <h1>Привет, Жан 😆</h1>
-        <p>Продолжай с низу там ↓</p>
+        <h1>Привет, Жан! 😆</h1>
+        <p>Ты готова? Тогда нажми на кнопочку и поехали!</p>
         <div class="buttons">
             <button onclick="nextPage(2)">Открыть</button>
-            <button onclick="alert('Ну ладно... 😢')">Не открывать</button>
         </div>
     </div>
 
     <div id="page2" class="container">
-        <h1>Жан, ты уверена, что хочешь открыть его???</h1>
+        <h1>Жан, ты точно хочешь открыть?</h1>
+        <p>Может, лучше оставить все в тайне и жить спокойно?</p>
         <div class="buttons">
-            <button onclick="nextPage(3)">Да</button>
-            <button onclick="alert('Ну ладно... Может в следующий раз! 😢')">Нет</button>
+            <button onclick="nextPage(3)">Да, хочу!</button>
+            <button onclick="alert('Ну ладно... Но мне грустно 😢')">Нет</button>
         </div>
     </div>
 
     <div id="page3" class="container">
-        <h1>Ты уверена???</h1>
+        <h1>Ты уверена?? 😳</h1>
+        <p>Может, лучше не рисковать?..</p>
         <div class="buttons">
-            <button onclick="nextPage(4)">Да</button>
-            <button onclick="alert('Ну как хочешь... 😢')">Нет</button>
+            <button onclick="nextPage(4)">Я уверена!</button>
+            <button onclick="alert('Ну ладно... 😢')">Нет</button>
         </div>
     </div>
 
     <div id="page4" class="container">
-        <h1>Точно точнооо??</h1>
+        <h1>Точно-точно?? 🤨</h1>
+        <p>Может, передумаешь?</p>
         <div class="buttons">
-            <button onclick="nextPage(5)">Да</button>
-            <button onclick="alert('Ну как хочешь... 😢')">Нет</button>
+            <button onclick="nextPage(5)">Да! Открывай уже!</button>
         </div>
     </div>
 
     <div id="page5" class="container">
-        <h1>Ладно, ты выиграла, так уж и быть... Урааа!!!</h1>
-        <button onclick="nextPage(6)">Урааа</button>
+        <h1>Ладно, ты победила! 🥳</h1>
+        <p>Я сдаюсь, и вот твой сюрприз...</p>
+        <button onclick="nextPage(6)">Урааа!!!</button>
     </div>
 
     <div id="page6" class="container">
-        <h1>Жун, ты лучшая!</h1>
-        <p>Твои глаза, твое лицо, твой характер...  
-        В начале я даже не представлял, что все дойдет до такого, и я рад, что мы проходим этот путь вместе. ❤️</p>
+        <h1>Жан, ты невероятная! 💖</h1>
+        <p>Я не знаю, как так получилось, но я правда счастлив, что ты рядом. Твои глаза, твоя улыбка, твой характер... Все в тебе потрясающее! 🥹</p>
         <div class="buttons">
             <button onclick="nextPage(7)">😭🥹</button>
-            <button onclick="nextPage(7)">💯😍</button>
+            <button onclick="nextPage(7)">😍💯</button>
         </div>
     </div>
 
     <div id="page7" class="container">
-        <h1>С 14 февраля, Жун! ❤️</h1>
-        <p>Ты — самый прекрасный человек в моей жизни, и я всегда буду рядом с тобой! Ты заслуживаешь только счастья и радости!</p>
+        <h1>С Днем святого Валентина, Жан! ❤️</h1>
+        <p>Ты — самая прекрасная и замечательная, и я всегда буду рядом! Ты заслуживаешь только счастья!</p>
         <button onclick="alert('Тебя люблю! ❤️')">Тебя люблю!</button>
     </div>
 
