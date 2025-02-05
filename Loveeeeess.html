@@ -20,46 +20,47 @@
         }
 
         /* Экран загрузки */
-        #loading-screen {
+        .loading-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: #ffcccb;
+            background: white;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            font-size: 28px;
-            font-weight: bold;
-            color: #990033;
-            z-index: 1000;
-            transition: opacity 1s ease-out;
+            transition: opacity 1s ease-in-out;
+            z-index: 9999;
         }
 
         .loading-text {
-            display: flex;
-            align-items: center;
+            font-size: 24px;
+            color: #990033;
+            margin-top: 15px;
         }
 
-        .dots {
-            font-size: 28px;
-            animation: dots 1.5s infinite steps(1);
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #ff66b2;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
         }
 
-        @keyframes dots {
-            0% { content: "."; }
-            33% { content: ".."; }
-            66% { content: "..."; }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        .hidden {
+        /* Скрытие экрана загрузки */
+        .hide {
             opacity: 0;
             pointer-events: none;
         }
 
-        /* Основной контент */
         .container {
             display: none;
             flex-direction: column;
@@ -85,6 +86,54 @@
         @keyframes jump {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-15px); }
+        }
+
+        .buttons {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 450px;
+        }
+
+        button {
+            background-color: white;
+            border: 3px solid black;
+            padding: 14px 22px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.4s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            min-width: 180px;
+        }
+
+        button:hover {
+            background-color: #ffcccb;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        button:active {
+            transform: translateY(2px) scale(1);
+            background-color: #ffb6b9;
+        }
+
+        h1 {
+            font-size: 38px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #990033;
+        }
+
+        p {
+            font-size: 22px;
+            margin-bottom: 30px;
+            color: #660033;
+            line-height: 1.6;
+            max-width: 500px;
         }
 
         /* Летающие сердечки */
@@ -120,8 +169,9 @@
 <body>
 
     <!-- Экран загрузки -->
-    <div id="loading-screen">
-        <div class="loading-text">Загрузка<span class="dots">...</span></div>
+    <div class="loading-screen" id="loading-screen">
+        <div class="loader"></div>
+        <div class="loading-text">Загрузка...</div>
     </div>
 
     <div class="hearts-container" id="hearts-container"></div>
@@ -135,20 +185,38 @@
         </div>
     </div>
 
-    <!-- Остальные страницы такие же, не меняются -->
+    <div id="page2" class="container">
+        <h1>Жан, ты точно хочешь открыть?</h1>
+        <p>Может, лучше оставить все в тайне и жить спокойно?</p>
+        <div class="buttons">
+            <button onclick="nextPage(3)">Да, хочу!</button>
+            <button onclick="alert('Ну ладно... Но мне грустно 😢')">Нет</button>
+        </div>
+    </div>
+
+    <div id="page3" class="container">
+        <h1>Ты уверена?? 😳</h1>
+        <p>Может, лучше не рисковать?..</p>
+        <div class="buttons">
+            <button onclick="nextPage(4)">Я уверена!</button>
+            <button onclick="alert('Ну ладно... 😢')">Нет</button>
+        </div>
+    </div>
 
     <script>
-        // Скрипт для скрытия экрана загрузки
-        window.addEventListener("load", function () {
-            const loadingScreen = document.getElementById("loading-screen");
-            setTimeout(() => {
-                loadingScreen.classList.add("hidden");
-            }, 1500); // Подожди 1.5 секунды перед скрытием
-        });
+        function nextPage(pageNumber) {
+            document.querySelectorAll('.container').forEach(div => {
+                div.classList.remove('visible');
+                div.style.opacity = 0;
+            });
+            const newPage = document.getElementById('page' + pageNumber);
+            newPage.classList.add('visible');
+            setTimeout(() => { newPage.style.opacity = 1; }, 100);
+        }
 
         function createHearts() {
             const container = document.getElementById("hearts-container");
-            const colors = ["#ff0000", "#ff66b2", "#ff9933", "#9900cc"];
+            const colors = ["#ff0000", "#ff66b2", "#ff9933", "#9900cc"]; // Красный, розовый, оранжевый, фиолетовый
             const emojis = ["❤️", "💖", "💜", "💛"];
 
             setInterval(() => {
@@ -168,7 +236,17 @@
             }, 300);
         }
 
-        createHearts();
+        function hideLoadingScreen() {
+            const loadingScreen = document.getElementById("loading-screen");
+            setTimeout(() => {
+                loadingScreen.classList.add("hide");
+            }, 2000);
+        }
+
+        window.onload = () => {
+            createHearts();
+            hideLoadingScreen();
+        };
     </script>
 
 </body>
