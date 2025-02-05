@@ -190,6 +190,11 @@
             location.reload();
         }
 
+        function nextPage(page) {
+            document.querySelectorAll('.container').forEach(page => page.classList.remove('visible'));
+            document.getElementById(`page${page}`).classList.add('visible');
+        }
+
         startLoading();
     </script>
 
