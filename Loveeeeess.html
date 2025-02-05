@@ -19,6 +19,7 @@
             position: relative;
         }
 
+        /* Контейнеры страниц */
         .container {
             position: absolute;
             top: 50%;
@@ -93,9 +94,40 @@
             max-width: 500px;
         }
 
+        /* Стили для сердечек */
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            bottom: -50px;
+            font-size: 24px;
+            color: red;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(0.8);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1.5);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
+
+    <div class="hearts-container" id="hearts-container"></div>
 
     <div id="page1" class="container visible">
         <div class="bunny">🐰</div>
@@ -164,6 +196,27 @@
                 newPage.classList.add('visible');
             }
         }
+
+        function createHearts() {
+            const container = document.getElementById("hearts-container");
+
+            setInterval(() => {
+                const heart = document.createElement("div");
+                heart.className = "heart";
+                heart.innerHTML = "❤️";
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+                heart.style.fontSize = (16 + Math.random() * 20) + "px";
+
+                container.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 6000);
+            }, 300);
+        }
+
+        createHearts();
     </script>
 
 </body>
