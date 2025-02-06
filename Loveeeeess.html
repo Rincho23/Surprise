@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Сюрприз</title>
   <style>
     body {
@@ -10,15 +10,20 @@
       text-align: center;
       background-color: #ffe6f2;
       margin: 0;
-      padding: 0;
-      height: 100vh;
+      padding: 20px;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       position: relative;
-      overflow: hidden;
+      overflow: auto;
+      box-sizing: border-box;
     }
-    
+
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
+
     .hidden {
       display: none;
     }
@@ -32,7 +37,7 @@
       pointer-events: none;
       overflow: hidden;
     }
-    
+
     .heart {
       position: absolute;
       bottom: -50px;
@@ -40,59 +45,61 @@
       opacity: 0.8;
       animation: floatUp linear infinite;
     }
-    
+
     @keyframes floatUp {
       0% { transform: translateY(0) scale(1); opacity: 1; }
       100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
     }
-    
+
     .loader-container, .quiz-container {
-      position: absolute;
-      width: 90%;
+      position: relative;
+      width: 100%;
       max-width: 400px;
       background-color: #ffcccb;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20px;
+      padding: 15px;
       border-radius: 10px;
       text-align: center;
       z-index: 2;
+      margin: 10px 0;
     }
-    
+
     .quiz-container {
       display: none;
       background-color: white;
       border: 2px solid black;
     }
-    
+
     .error-message {
       color: red;
-      font-size: 22px;
-      margin-top: 20px;
+      font-size: 18px;
+      margin-top: 15px;
       display: none;
     }
-    
+
     .container {
       display: none;
-      position: absolute;
-      width: 90%;
+      position: relative;
+      width: 100%;
       max-width: 400px;
       flex-direction: column;
       align-items: center;
       background-color: #ffe6f2;
-      padding: 20px;
+      padding: 15px;
       border-radius: 10px;
       opacity: 0;
       transition: opacity 0.6s ease-in-out;
       z-index: 1;
+      margin: 10px 0;
     }
-    
+
     .visible {
       display: flex !important;
       opacity: 1;
     }
-    
+
     button {
       background-color: white;
       border: 2px solid black;
@@ -101,19 +108,54 @@
       cursor: pointer;
       border-radius: 5px;
       margin: 5px;
-      width: 80%;
+      width: 100%;
       max-width: 250px;
       transition: background-color 0.3s;
     }
-    
+
     button:hover {
       background-color: #ff9999;
     }
 
     @media (max-width: 600px) {
-      h1 { font-size: 20px; }
-      p { font-size: 16px; }
-      button { font-size: 14px; padding: 10px; }
+      body {
+        padding: 10px;
+      }
+      
+      h1 { 
+        font-size: 24px;
+        margin: 15px 0;
+      }
+      
+      p { 
+        font-size: 16px;
+        margin: 10px 0;
+      }
+      
+      button { 
+        font-size: 14px; 
+        padding: 12px;
+        max-width: 100%;
+      }
+      
+      .loader-container, .quiz-container, .container {
+        padding: 10px;
+      }
+      
+      .error-message {
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      h1 {
+        font-size: 20px;
+      }
+      
+      button {
+        font-size: 13px;
+        padding: 10px;
+      }
     }
   </style>
 </head>
@@ -226,12 +268,10 @@
       heart.textContent = '❤️';
       heart.className = 'heart';
       heart.style.left = `${Math.random() * 100}vw`;
-      heart.style.animationDuration = `${Math.random() * 3 + 3}s`;
       document.getElementById('hearts-container').appendChild(heart);
       setTimeout(() => heart.remove(), 6000);
     }
 
-    // Инициализация
     setInterval(createHeart, 500);
     startLoading();
   </script>
