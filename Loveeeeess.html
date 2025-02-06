@@ -1,237 +1,247 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сюрприз</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            background-color: #ffe6f2;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Сюрприз</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      background-color: #ffe6f2;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
 
-        /* Сердечки */
-        .hearts-container {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
+    /* Сердечки */
+    .hearts-container {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
 
-        .heart {
-            position: absolute;
-            bottom: -50px;
-            font-size: 20px;
-            opacity: 0.8;
-            animation: floatUp linear infinite;
-        }
+    .heart {
+      position: absolute;
+      bottom: -50px;
+      font-size: 20px;
+      opacity: 0.8;
+      animation: floatUp linear infinite;
+    }
 
-        @keyframes floatUp {
-            0% { transform: translateY(0) scale(1); opacity: 1; }
-            100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
-        }
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+    }
 
-        /* Загрузочный экран */
-        .loader-container, .quiz-container {
-            position: absolute;
-            width: 90%;
-            max-width: 400px;
-            height: auto;
-            background-color: #ffcccb;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            font-size: 20px;
-            font-weight: bold;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
+    /* Центрирование всех основных окон */
+    .loader-container,
+    .quiz-container,
+    .container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+    }
 
-        .quiz-container {
-            display: none;
-            background-color: white;
-            border: 2px solid black;
-        }
+    /* Загрузочный экран */
+    .loader-container, .quiz-container {
+      width: 90%;
+      max-width: 400px;
+      height: auto;
+      background-color: #ffcccb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-size: 20px;
+      font-weight: bold;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
 
-        .error-message {
-            color: red;
-            font-size: 22px;
-            margin-top: 20px;
-            display: none;
-        }
+    .quiz-container {
+      display: none;
+      background-color: white;
+      border: 2px solid black;
+    }
 
-        /* Страницы */
-        .container {
-            display: none;
-            position: absolute;
-            width: 90%;
-            max-width: 400px;
-            height: auto;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #ffe6f2;
-            padding: 20px;
-            border-radius: 10px;
-            opacity: 0;
-            transition: opacity 0.6s ease-in-out;
-        }
+    .error-message {
+      color: red;
+      font-size: 22px;
+      margin-top: 20px;
+      display: none;
+    }
 
-        .visible {
-            display: flex !important;
-            opacity: 1;
-        }
+    /* Страницы */
+    .container {
+      width: 90%;
+      max-width: 400px;
+      height: auto;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #ffe6f2;
+      padding: 20px;
+      border-radius: 10px;
+      opacity: 0;
+      transition: opacity 0.6s ease-in-out;
+      display: none;
+    }
 
-        button {
-            background-color: white;
-            border: 2px solid black;
-            padding: 12px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-            margin: 5px;
-            width: 80%;
-            max-width: 250px;
-        }
+    .visible {
+      display: flex !important;
+      opacity: 1;
+    }
 
-        button:hover {
-            background-color: #ff9999;
-        }
+    button {
+      background-color: white;
+      border: 2px solid black;
+      padding: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      margin: 5px;
+      width: 80%;
+      max-width: 250px;
+    }
 
-        @media (max-width: 600px) {
-            h1 { font-size: 20px; }
-            p { font-size: 16px; }
-            button { font-size: 14px; padding: 10px; }
-        }
-    </style>
+    button:hover {
+      background-color: #ff9999;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 20px; }
+      p { font-size: 16px; }
+      button { font-size: 14px; padding: 10px; }
+    }
+  </style>
 </head>
 <body>
 
-    <div class="hearts-container" id="hearts-container"></div>
+  <div class="hearts-container" id="hearts-container"></div>
 
-    <div class="loader-container" id="loader">
-        <div id="loading-text">Загрузка: 0%</div>
-        <div id="error-message" class="error-message">Ошибка! Хотите исправить?</div>
-        <div class="buttons hidden" id="error-buttons">
-            <button onclick="showQuiz()">Да</button>
-            <button onclick="restartLoading()">Нет</button>
-        </div>
+  <div class="loader-container" id="loader">
+    <div id="loading-text">Загрузка: 0%</div>
+    <div id="error-message" class="error-message">Ошибка! Хотите исправить?</div>
+    <div class="buttons hidden" id="error-buttons">
+      <button onclick="showQuiz()">Да</button>
+      <button onclick="restartLoading()">Нет</button>
+    </div>
+  </div>
+
+  <div class="quiz-container" id="quiz">
+    <p>Когда день рождения у твоего человека?</p>
+    <button onclick="checkAnswer(1)">2 Июля</button>
+    <button onclick="checkAnswer(2)">3 Июня</button>
+    <button onclick="checkAnswer(3)">2 Июня</button>
+  </div>
+
+  <div id="main-content" class="hidden">
+    <div id="page1" class="container visible">
+      <h1>Привет, Жан! 😆</h1>
+      <p>Ты готова? Тогда нажми на кнопочку и поехали!</p>
+      <button onclick="nextPage(2)">Открыть</button>
     </div>
 
-    <div class="quiz-container" id="quiz">
-        <p>Когда день рождения у твоего человека?</p>
-        <button onclick="checkAnswer(1)">2 Июля</button>
-        <button onclick="checkAnswer(2)">3 Июня</button>
-        <button onclick="checkAnswer(3)">2 Июня</button>
+    <div id="page2" class="container">
+      <h1>Ты уверена?? 😳</h1>
+      <p>Может, лучше не рисковать?..</p>
+      <button onclick="nextPage(3)">Я уверена!</button>
     </div>
 
-    <div id="main-content" class="hidden">
-        <div id="page1" class="container visible">
-            <h1>Привет, Жан! 😆</h1>
-            <p>Ты готова? Тогда нажми на кнопочку и поехали!</p>
-            <button onclick="nextPage(2)">Открыть</button>
-        </div>
-
-        <div id="page2" class="container">
-            <h1>Ты уверена?? 😳</h1>
-            <p>Может, лучше не рисковать?..</p>
-            <button onclick="nextPage(3)">Я уверена!</button>
-        </div>
-
-        <div id="page3" class="container">
-            <h1>Ладно, ты победила! 🥳</h1>
-            <p>Я сдаюсь, и вот твой сюрприз...</p>
-            <button onclick="nextPage(4)">Урааа!!!</button>
-        </div>
-
-        <div id="page4" class="container">
-            <h1>Жан, ты невероятная! 💖</h1>
-            <p>Ты заслуживаешь только счастья!</p>
-            <button onclick="nextPage(5)">😍💯</button>
-        </div>
-
-        <div id="page5" class="container">
-            <h1>С Днем святого Валентина, Жан! ❤️</h1>
-            <p>Ты самая прекрасная!</p>
-            <button onclick="alert('Тебя люблю! ❤️')">Тебя люблю!</button>
-        </div>
+    <div id="page3" class="container">
+      <h1>Ладно, ты победила! 🥳</h1>
+      <p>Я сдаюсь, и вот твой сюрприз...</p>
+      <button onclick="nextPage(4)">Урааа!!!</button>
     </div>
 
-    <script>
-        function startLoading() {
-            let progress = 0;
-            let loadingInterval = setInterval(() => {
-                progress += Math.floor(Math.random() * 10) + 1;
-                if (progress >= 100) {
-                    clearInterval(loadingInterval);
-                    document.getElementById("loading-text").innerText = "Загрузка: 100%";
-                    document.getElementById("error-message").style.display = "block";
-                    document.getElementById("error-buttons").classList.remove("hidden");
-                } else {
-                    document.getElementById("loading-text").innerText = "Загрузка: " + progress + "%";
-                }
-            }, 500);
+    <div id="page4" class="container">
+      <h1>Жан, ты невероятная! 💖</h1>
+      <p>Ты заслуживаешь только счастья!</p>
+      <button onclick="nextPage(5)">😍💯</button>
+    </div>
+
+    <div id="page5" class="container">
+      <h1>С Днем святого Валентина, Жан! ❤️</h1>
+      <p>Ты самая прекрасная!</p>
+      <button onclick="alert('Тебя люблю! ❤️')">Тебя люблю!</button>
+    </div>
+  </div>
+
+  <script>
+    function startLoading() {
+      let progress = 0;
+      let loadingInterval = setInterval(() => {
+        progress += Math.floor(Math.random() * 10) + 1;
+        if (progress >= 100) {
+          clearInterval(loadingInterval);
+          document.getElementById("loading-text").innerText = "Загрузка: 100%";
+          document.getElementById("error-message").style.display = "block";
+          document.getElementById("error-buttons").classList.remove("hidden");
+        } else {
+          document.getElementById("loading-text").innerText = "Загрузка: " + progress + "%";
         }
+      }, 500);
+    }
 
-        function showQuiz() {
-            document.getElementById("loader").style.display = "none";
-            document.getElementById("quiz").style.display = "flex";
-        }
+    function showQuiz() {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("quiz").style.display = "flex";
+    }
 
-        function checkAnswer(option) {
-            if (option === 3) {
-                document.getElementById("quiz").innerHTML = "<p style='color: green; font-size: 24px;'>Успешно! 🎉</p>";
-                setTimeout(() => {
-                    document.getElementById("quiz").style.display = "none";
-                    document.getElementById("main-content").classList.remove("hidden");
-                }, 2000);
-            } else {
-                alert("Неверно! Попробуй снова.");
-                location.reload();
-            }
-        }
+    function checkAnswer(option) {
+      if (option === 3) {
+        document.getElementById("quiz").innerHTML = "<p style='color: green; font-size: 24px;'>Успешно! 🎉</p>";
+        setTimeout(() => {
+          document.getElementById("quiz").style.display = "none";
+          document.getElementById("main-content").classList.remove("hidden");
+        }, 2000);
+      } else {
+        alert("Неверно! Попробуй снова.");
+        location.reload();
+      }
+    }
 
-        function restartLoading() { location.reload(); }
+    function restartLoading() { location.reload(); }
 
-        function nextPage(page) {
-            const currentPage = document.querySelector('.visible');
-            if (currentPage) {
-                currentPage.classList.remove('visible');
-                setTimeout(() => {
-                    currentPage.style.display = 'none';
-                    document.getElementById(`page${page}`).style.display = 'flex';
-                    document.getElementById(`page${page}`).classList.add('visible');
-                }, 600);
-            }
-        }
+    function nextPage(page) {
+      const currentPage = document.querySelector('.visible');
+      if (currentPage) {
+        currentPage.classList.remove('visible');
+        setTimeout(() => {
+          currentPage.style.display = 'none';
+          document.getElementById(`page${page}`).style.display = 'flex';
+          document.getElementById(`page${page}`).classList.add('visible');
+        }, 600);
+      }
+    }
 
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.innerHTML = '❤️';
-            heart.classList.add('heart');
-            document.getElementById('hearts-container').appendChild(heart);
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 3 + 3 + 's';
-            setTimeout(() => { heart.remove(); }, 6000); // Увеличено время удаления
-        }
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.innerHTML = '❤️';
+      heart.classList.add('heart');
+      document.getElementById('hearts-container').appendChild(heart);
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = Math.random() * 3 + 3 + 's';
+      setTimeout(() => { heart.remove(); }, 6000);
+    }
 
-        setInterval(createHeart, 500);
-        startLoading();
-    </script>
+    setInterval(createHeart, 500);
+    startLoading();
+  </script>
 
 </body>
 </html>
