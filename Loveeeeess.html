@@ -2,8 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <!-- 🟢 Добавлено запрещение масштабирования -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Сюрприз</title>
     <style>
         body {
@@ -12,9 +11,7 @@
             background-color: #ffe6f2;
             margin: 0;
             padding: 0;
-            /* 🟢 Исправлено на auto для мобильных */
-            overflow: auto;
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -23,56 +20,48 @@
 
         .loader-container, .quiz-container {
             position: absolute;
-            width: 100%;
-            height: 100%;
+            width: 90%;
+            max-width: 400px;
+            height: auto;
             background-color: #ffcccb;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            /* 🟢 Адаптивный размер шрифта */
-            font-size: min(5vw, 24px);
+            font-size: 20px;
             font-weight: bold;
             padding: 20px;
-            box-sizing: border-box;
+            border-radius: 10px;
+            text-align: center;
         }
 
         .quiz-container {
             display: none;
             background-color: white;
             border: 2px solid black;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
         }
 
         .error-message {
             color: red;
-            /* 🟢 Адаптивный размер */
-            font-size: min(6vw, 28px);
+            font-size: 22px;
             margin-top: 20px;
             display: none;
         }
 
         .buttons {
             margin-top: 20px;
-            width: 100%;
         }
 
         button {
             background-color: white;
             border: 2px solid black;
-            /* 🟢 Увеличенные отступы */
-            padding: 15px 25px;
-            /* 🟢 Адаптивный размер */
-            font-size: min(4.5vw, 18px);
+            padding: 12px;
+            font-size: 16px;
             cursor: pointer;
             border-radius: 5px;
-            margin: 10px;
-            /* 🟢 Занимает 80% ширины */
+            margin: 5px;
             width: 80%;
-            max-width: 300px;
-            transition: background-color 0.3s;
+            max-width: 250px;
         }
 
         button:hover {
@@ -85,59 +74,156 @@
 
         .container {
             display: none;
-            position: absolute;
-            width: 100%;
-            height: 100%;
+            width: 90%;
+            max-width: 400px;
+            height: auto;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             background-color: #ffe6f2;
-            /* 🟢 Добавлены отступы */
             padding: 20px;
-            box-sizing: border-box;
+            border-radius: 10px;
         }
 
         .visible {
             display: flex !important;
         }
 
-        /* 🟢 Мобильная адаптация */
-        @media (max-width: 768px) {
-            .container h1 {
-                font-size: 8vw;
-                margin: 10px 0;
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 20px;
             }
-            
-            .container p {
-                font-size: 5vw;
-                margin: 10px 0;
-                line-height: 1.4;
+            p {
+                font-size: 16px;
             }
-            
             button {
-                padding: 20px;
-                margin: 15px 0;
-                width: 90%;
-            }
-            
-            .bunny {
-                font-size: 15vw;
-            }
-        }
-
-        /* 🟢 Десктопная версия */
-        @media (min-width: 769px) {
-            .container h1 {
-                font-size: 28px;
-            }
-            
-            .container p {
-                font-size: 18px;
+                font-size: 14px;
+                padding: 10px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- [Весь HTML-код остается как в вашей оригинальной версии] -->
+
+    <div class="loader-container" id="loader">
+        <div id="loading-text">Загрузка: 0%</div>
+        <div id="error-message" class="error-message">Ошибка! Хотите исправить?</div>
+        <div class="buttons hidden" id="error-buttons">
+            <button onclick="showQuiz()">Да</button>
+            <button onclick="restartLoading()">Нет</button>
+        </div>
+    </div>
+
+    <div class="quiz-container" id="quiz">
+        <p>Когда день рождения у твоего человека?</p>
+        <button onclick="checkAnswer(1)">2 Июля</button>
+        <button onclick="checkAnswer(2)">3 Июня</button>
+        <button onclick="checkAnswer(3)">2 Июня</button>
+    </div>
+
+    <div id="main-content" class="hidden">
+        <div id="page1" class="container visible">
+            <div class="bunny">🐰</div>
+            <h1>Привет, Жан! 😆</h1>
+            <p>Ты готова? Тогда нажми на кнопочку и поехали!</p>
+            <div class="buttons">
+                <button onclick="nextPage(2)">Открыть</button>
+            </div>
+        </div>
+
+        <div id="page2" class="container">
+            <h1>Жан, ты точно хочешь открыть?</h1>
+            <p>Может, лучше оставить все в тайне и жить спокойно?</p>
+            <div class="buttons">
+                <button onclick="nextPage(3)">Да, хочу!</button>
+                <button onclick="alert('Ну ладно... Но мне грустно 😢')">Нет</button>
+            </div>
+        </div>
+
+        <div id="page3" class="container">
+            <h1>Ты уверена?? 😳</h1>
+            <p>Может, лучше не рисковать?..</p>
+            <div class="buttons">
+                <button onclick="nextPage(4)">Я уверена!</button>
+                <button onclick="alert('Ну ладно... 😢')">Нет</button>
+            </div>
+        </div>
+
+        <div id="page4" class="container">
+            <h1>Точно-точно?? 🤨</h1>
+            <p>Может, передумаешь?</p>
+            <div class="buttons">
+                <button onclick="nextPage(5)">Да! Открывай уже!</button>
+            </div>
+        </div>
+
+        <div id="page5" class="container">
+            <h1>Ладно, ты победила! 🥳</h1>
+            <p>Я сдаюсь, и вот твой сюрприз...</p>
+            <button onclick="nextPage(6)">Урааа!!!</button>
+        </div>
+
+        <div id="page6" class="container">
+            <h1>Жан, ты невероятная! 💖</h1>
+            <p>Я не знаю, как так получилось, но я правда счастлив, что ты рядом. Твои глаза, твоя улыбка, твой характер... Все в тебе потрясающее! 🥹</p>
+            <div class="buttons">
+                <button onclick="nextPage(7)">😭🥹</button>
+                <button onclick="nextPage(7)">😍💯</button>
+            </div>
+        </div>
+
+        <div id="page7" class="container">
+            <h1>С Днем святого Валентина, Жан! ❤️</h1>
+            <p>Ты — самая прекрасная и замечательная, и я всегда буду рядом! Ты заслуживаешь только счастья!</p>
+            <button onclick="alert('Тебя люблю! ❤️')">Тебя люблю!</button>
+        </div>
+    </div>
+
+    <script>
+        function startLoading() {
+            let progress = 0;
+            let loadingInterval = setInterval(() => {
+                progress += Math.floor(Math.random() * 10) + 1;
+                if (progress >= 99) {
+                    clearInterval(loadingInterval);
+                    document.getElementById("loading-text").innerText = "Загрузка: 99%";
+                    document.getElementById("error-message").style.display = "block";
+                    document.getElementById("error-buttons").classList.remove("hidden");
+                } else {
+                    document.getElementById("loading-text").innerText = "Загрузка: " + progress + "%";
+                }
+            }, 500);
+        }
+
+        function showQuiz() {
+            document.getElementById("loader").style.display = "none";
+            document.getElementById("quiz").style.display = "flex";
+        }
+
+        function checkAnswer(option) {
+            if (option === 3) {
+                document.getElementById("quiz").innerHTML = "<p style='color: green; font-size: 24px;'>Успешно! 🎉</p>";
+                setTimeout(() => {
+                    document.getElementById("quiz").style.display = "none";
+                    document.getElementById("main-content").classList.remove("hidden");
+                }, 2000);
+            } else {
+                alert("Неверно! Попробуй снова.");
+                location.reload();
+            }
+        }
+
+        function restartLoading() {
+            location.reload();
+        }
+
+        function nextPage(page) {
+            document.querySelectorAll('.container').forEach(el => el.classList.remove('visible'));
+            document.getElementById(`page${page}`).classList.add('visible');
+        }
+
+        startLoading();
+    </script>
+
 </body>
 </html>
