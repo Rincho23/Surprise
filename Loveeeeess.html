@@ -8,7 +8,7 @@
     body {
       font-family: 'Arial', sans-serif;
       text-align: center;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      background: #000;
       margin: 0;
       padding: 20px;
       min-height: 100vh;
@@ -18,50 +18,35 @@
       position: relative;
       overflow: hidden;
       box-sizing: border-box;
-      animation: backgroundAnimation 10s infinite alternate;
-    }
-
-    @keyframes backgroundAnimation {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 100% 50%; }
-    }
-
-    *, *:before, *:after {
-      box-sizing: inherit;
+      color: white;
     }
 
     .hidden {
       display: none;
     }
 
-    .hearts-container {
+    /* Анимация пульсирующего сердца */
+    #heart-animation {
       position: fixed;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
+      font-size: 150px;
+      opacity: 0;
+      animation: heartbeat 1.5s infinite;
       pointer-events: none;
-      overflow: hidden;
+      display: none;
+      z-index: 1;
     }
 
-    .heart {
-      position: absolute;
-      bottom: -50px;
-      font-size: 24px;
-      opacity: 0.8;
-      animation: floatUp 5s ease-in infinite;
-    }
-
-    @keyframes floatUp {
-      0% { transform: translateY(0) scale(1); opacity: 1; }
-      100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+    @keyframes heartbeat {
+      0% { transform: scale(1); opacity: 0.1; }
+      50% { transform: scale(1.2); opacity: 0.3; }
+      100% { transform: scale(1); opacity: 0.1; }
     }
 
     .loader-container, .quiz-container {
       position: relative;
       width: 100%;
       max-width: 400px;
-      background-color: rgba(255, 255, 255, 0.9);
+      background: rgba(200, 0, 0, 0.9);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -70,18 +55,17 @@
       text-align: center;
       z-index: 2;
       margin: 10px 0;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 15px rgba(255, 0, 0, 0.2);
       animation: fadeIn 1s ease-in-out;
+      border: 2px solid #ff4444;
     }
 
     .quiz-container {
       display: none;
-      background-color: white;
-      border: 2px solid black;
     }
 
     .error-message {
-      color: red;
+      color: #ffcccc;
       font-size: 18px;
       margin-top: 15px;
       display: none;
@@ -94,15 +78,16 @@
       max-width: 400px;
       flex-direction: column;
       align-items: center;
-      background-color: rgba(255, 255, 255, 0.9);
+      background: rgba(150, 0, 0, 0.9);
       padding: 20px;
       border-radius: 15px;
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
-      z-index: 1;
+      z-index: 2;
       margin: 10px 0;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 15px rgba(255, 0, 0, 0.2);
+      border: 2px solid #ff4444;
     }
 
     .visible {
@@ -112,8 +97,9 @@
     }
 
     button {
-      background-color: white;
-      border: 2px solid #ff6f61;
+      background-color: #ff0000;
+      color: white;
+      border: 2px solid #ff4444;
       padding: 12px;
       font-size: 16px;
       cursor: pointer;
@@ -126,27 +112,21 @@
     }
 
     button:hover {
-      background-color: #ff6f61;
-      color: white;
+      background-color: #cc0000;
       transform: scale(1.05);
-      box-shadow: 0 4px 15px rgba(255, 111, 97, 0.4);
+      box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
     }
 
     h1 {
       font-size: 28px;
-      color: #ff6f61;
+      color: white;
       margin-bottom: 15px;
-      animation: textGlow 2s infinite alternate;
-    }
-
-    @keyframes textGlow {
-      0% { text-shadow: 0 0 5px rgba(255, 111, 97, 0.5); }
-      100% { text-shadow: 0 0 20px rgba(255, 111, 97, 0.9); }
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
     }
 
     p {
       font-size: 18px;
-      color: #333;
+      color: #ffcccc;
       margin-bottom: 20px;
     }
 
@@ -161,13 +141,13 @@
     }
 
     .success-message {
-      color: #2ecc71 !important;
+      color: #00ff00 !important;
       font-size: 20px !important;
       animation: successPopup 1s ease-out;
       padding: 15px;
       border-radius: 10px;
-      background: rgba(255, 255, 255, 0.95);
-      box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+      background: rgba(0, 0, 0, 0.8);
+      box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
     }
 
     @keyframes successPopup {
@@ -184,47 +164,24 @@
     .shake { animation: shake 0.4s ease-in-out; }
 
     @media (max-width: 600px) {
-      body {
-        padding: 10px;
-      }
-      
-      h1 { 
-        font-size: 24px;
-      }
-      
-      p { 
-        font-size: 16px;
-      }
-      
-      button { 
-        font-size: 14px; 
-        padding: 10px;
-      }
-      
-      .loader-container, .quiz-container, .container {
-        padding: 15px;
-      }
-      
-      .error-message {
-        font-size: 16px;
-      }
+      body { padding: 10px; }
+      h1 { font-size: 24px; }
+      p { font-size: 16px; }
+      button { font-size: 14px; padding: 10px; }
+      .loader-container, .quiz-container, .container { padding: 15px; }
+      .error-message { font-size: 16px; }
+      #heart-animation { font-size: 100px; }
     }
 
     @media (max-width: 400px) {
-      h1 {
-        font-size: 20px;
-      }
-      
-      button {
-        font-size: 13px;
-        padding: 8px;
-      }
+      h1 { font-size: 20px; }
+      button { font-size: 13px; padding: 8px; }
+      #heart-animation { font-size: 80px; }
     }
   </style>
 </head>
 <body>
-
-  <div class="hearts-container" id="hearts-container"></div>
+  <div id="heart-animation">❤️</div>
 
   <div class="loader-container" id="loader">
     <div id="loading-text">Загрузка: 0%</div>
@@ -299,6 +256,7 @@
 
     function checkAnswer(option) {
       if (option === 3) {
+        document.getElementById("heart-animation").style.display = "block";
         const successHTML = `
           <div class="success-message">
             🎉 Успешная авторизация!<br>
@@ -339,17 +297,6 @@
       }
     }
 
-    function createHeart() {
-      const heart = document.createElement('div');
-      heart.textContent = '❤️';
-      heart.className = 'heart';
-      heart.style.left = `${Math.random() * 100}vw`;
-      heart.style.animationDuration = `${Math.random() * 3 + 2}s`;
-      document.getElementById('hearts-container').appendChild(heart);
-      setTimeout(() => heart.remove(), 6000);
-    }
-
-    setInterval(createHeart, 300);
     startLoading();
   </script>
 </body>
