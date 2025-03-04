@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Поздравление с 8 марта</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+
         body {
             display: flex;
             justify-content: center;
@@ -12,14 +14,20 @@
             height: 100vh;
             background-color: #ffe4e1;
             transition: background 1s ease-in-out;
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            font-size: 24px;
-            color: #333;
+            font-family: 'Dancing Script', cursive;
             text-align: center;
+        }
+
+        .container {
+            font-size: 32px;
+            color: #333;
             max-width: 80%;
             white-space: pre-wrap;
+        }
+
+        .letter {
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
         }
     </style>
 </head>
@@ -27,25 +35,29 @@
     <div class="container" id="text"></div>
 
     <script>
-        const text = "С 8 марта! \nТы прекрасна, как весна, \nПусть счастье наполняет твои дни! \nУлыбайся и сияй!";
+        const text = "С 8 марта!\nТы прекрасна, как весна,\nПусть счастье наполняет твои дни!\nУлыбайся и сияй!";
         const textElement = document.getElementById("text");
-        let index = 0;
 
-        function typeText() {
-            if (index < text.length) {
-                textElement.textContent += text[index];
-                index++;
-                setTimeout(typeText, 100);
-            } else {
-                setTimeout(changeBackground, 1000);
-            }
+        function animateText() {
+            text.split('').forEach((char, index) => {
+                let span = document.createElement('span');
+                span.textContent = char;
+                span.classList.add('letter');
+                textElement.appendChild(span);
+
+                setTimeout(() => {
+                    span.style.opacity = 1;
+                }, index * 100);
+            });
+
+            setTimeout(changeBackground, text.length * 100 + 1000);
         }
 
         function changeBackground() {
             document.body.style.background = "url('https://source.unsplash.com/1600x900/?flowers') no-repeat center center/cover";
         }
 
-        typeText();
+        animateText();
     </script>
 </body>
 </html>
