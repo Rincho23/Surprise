@@ -1,252 +1,51 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Сюрприз для Жунки</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      text-align: center;
-      background: #000;
-      margin: 0;
-      padding: 20px;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      overflow: hidden;
-      box-sizing: border-box;
-      color: white;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    /* Анимация пульсирующего сердца с отражением */
-    #heart-animation {
-      position: fixed;
-      font-size: 200px;
-      opacity: 0;
-      animation: heartbeat 1.5s infinite, glow 2s infinite;
-      pointer-events: none;
-      display: none;
-      z-index: 1;
-      text-shadow: 0 0 20px rgba(255,0,0,0.5);
-    }
-
-    #heart-animation::after {
-      content: '❤️';
-      position: absolute;
-      top: 100%;
-      left: 0;
-      transform: scaleY(-1);
-      opacity: 0.2;
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
-      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
-    }
-
-    @keyframes heartbeat {
-      0% { transform: scale(1); opacity: 0.1; }
-      50% { transform: scale(1.2); opacity: 0.3; }
-      100% { transform: scale(1); opacity: 0.1; }
-    }
-
-    @keyframes glow {
-      0%, 100% { text-shadow: 0 0 20px rgba(255,0,0,0.5); }
-      50% { text-shadow: 0 0 40px rgba(255,0,0,0.8), 0 0 60px rgba(255,0,0,0.6); }
-    }
-
-    .loader-container, .quiz-container {
-      position: relative;
-      width: 100%;
-      max-width: 400px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
-      border-radius: 15px;
-      text-align: center;
-      z-index: 2;
-      margin: 10px 0;
-      animation: fadeIn 1s ease-in-out;
-    }
-
-    .loader-container {
-      background: rgba(200, 0, 0, 0.9);
-      box-shadow: 0 4px 15px rgba(255, 0, 0, 0.2);
-      border: 2px solid #ff4444;
-    }
-
-    .quiz-container {
-      background: linear-gradient(45deg, #8B0000, #FF4500);
-      border: 3px solid #FFD700;
-      box-shadow: 0 4px 30px rgba(255, 69, 0, 0.4);
-      animation: pulse 2s infinite alternate;
-      display: none;
-    }
-
-    @keyframes pulse {
-      from { transform: scale(0.98); box-shadow: 0 0 15px rgba(255,69,0,0.3); }
-      to { transform: scale(1.02); box-shadow: 0 0 30px rgba(255,69,0,0.6); }
-    }
-
-    .error-message {
-      color: #ffcccc;
-      font-size: 18px;
-      margin-top: 15px;
-      display: none;
-    }
-
-    .container {
-      display: none;
-      position: relative;
-      width: 100%;
-      max-width: 400px;
-      flex-direction: column;
-      align-items: center;
-      background: rgba(150, 0, 0, 0.9);
-      padding: 20px;
-      border-radius: 15px;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
-      z-index: 2;
-      margin: 10px 0;
-      box-shadow: 0 4px 15px rgba(255, 0, 0, 0.2);
-      border: 2px solid #ff4444;
-    }
-
-    .visible {
-      display: flex !important;
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    button {
-      background-color: #ff0000;
-      color: white;
-      border: 2px solid #ff4444;
-      padding: 12px;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 25px;
-      margin: 10px;
-      width: 100%;
-      max-width: 250px;
-      transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-      animation: buttonEnter 0.6s ease-out backwards;
-    }
-
-    .quiz-container button {
-      background: linear-gradient(to bottom, #FF6347, #CD3700);
-      border: 2px solid #FFD700;
-      font-weight: bold;
-    }
-
-    button:hover {
-      background-color: #cc0000;
-      transform: scale(1.05);
-      box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
-    }
-
-    .quiz-container button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(255,215,0,0.4);
-    }
-
-    h1 {
-      font-size: 28px;
-      color: white;
-      margin-bottom: 15px;
-      text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-    }
-
-    p {
-      font-size: 18px;
-      color: #ffcccc;
-      margin-bottom: 20px;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes buttonEnter {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .success-message {
-      color: #00ff00 !important;
-      font-size: 20px !important;
-      animation: successPopup 1s ease-out;
-      padding: 15px;
-      border-radius: 10px;
-      background: rgba(0, 0, 0, 0.8);
-      box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
-    }
-
-    @keyframes successPopup {
-      0% { transform: scale(0.5); opacity: 0; }
-      70% { transform: scale(1.1); }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-10px); }
-      75% { transform: translateX(10px); }
-    }
-    .shake { animation: shake 0.4s ease-in-out; }
-
-    @media (max-width: 600px) {
-      body { padding: 10px; }
-      h1 { font-size: 24px; }
-      p { font-size: 16px; }
-      button { font-size: 14px; padding: 10px; }
-      .loader-container, .quiz-container, .container { padding: 15px; }
-      .error-message { font-size: 16px; }
-      #heart-animation { font-size: 140px; }
-    }
-
-    @media (max-width: 400px) {
-      h1 { font-size: 20px; }
-      button { font-size: 13px; padding: 8px; }
-      #heart-animation { font-size: 100px; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поздравление с 8 марта</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffe4e1;
+            transition: background 1s ease-in-out;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+            max-width: 80%;
+            white-space: pre-wrap;
+        }
+    </style>
 </head>
 <body>
-  <div id="heart-animation">❤️</div>
+    <div class="container" id="text"></div>
 
-  <div class="loader-container" id="loader">
-    <div id="loading-text">Загрузка: 0%</div>
-    <div id="error-message" class="error-message">Ошибка! Хотите исправить?</div>
-    <div class="buttons hidden" id="error-buttons">
-      <button onclick="showQuiz()">Да</button>
-      <button onclick="restartLoading()">Нет</button>
-    </div>
-  </div>
+    <script>
+        const text = "С 8 марта! \nТы прекрасна, как весна, \nПусть счастье наполняет твои дни! \nУлыбайся и сияй!";
+        const textElement = document.getElementById("text");
+        let index = 0;
 
-  <div class="quiz-container" id="quiz">
-    <p>Когда день рождения у твоего человека?</p>
-    <button onclick="checkAnswer(1)">2 Июля</button>
-    <button onclick="checkAnswer(2)">3 Июня</button>
-    <button onclick="checkAnswer(3)">2 Июня</button>
-  </div>
+        function typeText() {
+            if (index < text.length) {
+                textElement.textContent += text[index];
+                index++;
+                setTimeout(typeText, 100);
+            } else {
+                setTimeout(changeBackground, 1000);
+            }
+        }
 
-  <div id="main-content" class="hidden">
-    <!-- Здесь остается оригинальное содержимое контейнеров -->
-    <!-- ... -->
-  </div>
+        function changeBackground() {
+            document.body.style.background = "url('https://source.unsplash.com/1600x900/?flowers') no-repeat center center/cover";
+        }
 
-  <script>
-    // Оригинальный JavaScript код без изменений
-    // ... 
-  </script>
+        typeText();
+    </script>
 </body>
 </html>
